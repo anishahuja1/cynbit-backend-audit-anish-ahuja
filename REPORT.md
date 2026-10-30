@@ -1,8 +1,8 @@
 # Backend Technical Audit: Cynbit Public Web Surfaces
 
-**Prepared by:** Anish Ahuja  
-**Role:** Backend Developer Intern applicant  
-**Observation date:** 31 October 2026  
+**Prepared by:** Anish Ahuja\
+**Role:** Backend Developer Intern applicant\
+**Observation date:** 31 October 2026\
 **Assessment mode:** Passive review of public pages only
 
 ## Executive summary
@@ -141,4 +141,3 @@ The applicant-provided email and portal text show different submission times for
 - [Cynbit Privacy Policy](https://www.cynbit.in/privacy)
 - [Cynbit Cookie Policy](https://www.cynbit.in/cookies)
 - [Cynbit Terms of Service](https://www.cynbit.in/terms)
-

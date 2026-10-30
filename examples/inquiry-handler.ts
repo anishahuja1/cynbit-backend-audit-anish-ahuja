@@ -49,7 +49,6 @@ function json(status: number, requestId: string, body: unknown): ResponseLike {
     body,
   };
 }
-
 export async function postInquiry(
   request: RequestLike,
   deps: Dependencies,

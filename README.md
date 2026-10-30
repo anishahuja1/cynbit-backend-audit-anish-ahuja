@@ -16,4 +16,3 @@ The review used ordinary page reads of publicly accessible Cynbit pages. No form
 ## Setup
 
 No runtime setup is required to read the report. The TypeScript example is a framework-neutral design sketch and is not wired to a live Cynbit system.
-
