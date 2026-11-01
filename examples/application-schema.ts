@@ -40,4 +40,3 @@ export const ApplicationSchema = z.object({
 }).strict();
 
 export type ApplicationRequest = z.infer<typeof ApplicationSchema>;
-
