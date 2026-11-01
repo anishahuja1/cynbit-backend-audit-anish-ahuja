@@ -1,6 +1,6 @@
 # Cynbit Backend Surface Review
 
-**Backend Developer Intern assessment · Anish Ahuja · 31 October 2026**
+**Backend Developer Intern assessment · Anish Ahuja · 1 November 2026**
 
 This repository contains a passive, public-surface review of Cynbit's website and a small set of illustrative backend design recommendations. It is an assessment report, not a penetration test or a claim about Cynbit's private implementation.
 
@@ -8,6 +8,7 @@ This repository contains a passive, public-surface review of Cynbit's website an
 
 - [`REPORT.md`](REPORT.md) — scope, observed behavior, evidence-based findings, and prioritized recommendations.
 - [`examples/inquiry-handler.ts`](examples/inquiry-handler.ts) — illustrative request validation and response contract for a public inquiry endpoint.
+- [`examples/application-schema.ts`](examples/application-schema.ts) — a proposed privacy-minimized DTO based on fields visible in the public role form.
 
 ## Review boundary
 

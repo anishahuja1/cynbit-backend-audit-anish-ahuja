@@ -2,7 +2,7 @@
 
 **Prepared by:** Anish Ahuja\
 **Role:** Backend Developer Intern applicant\
-**Observation date:** 31 October 2026\
+**Observation date:** 1 November 2026\
 **Assessment mode:** Passive review of public pages only
 
 ## Executive summary
@@ -32,6 +32,12 @@ The candidate portal URL included in the applicant's message was not independent
 | Privacy statement | Says contact forms generally collect name, email, and professional context; describes inquiry and BitElevate use, rights requests, and Resend/Prisma as third-party services. [Privacy policy](https://www.cynbit.in/privacy) | Keep notices aligned with each form and actual processors; document purpose, retention, and data-subject request handling. | Whether this is the complete processor inventory and whether recruitment data follows the same policy. |
 | Cookie statement | Describes essential cookies, analytics (including Google Analytics), and functional preferences such as previously filled form fields. [Cookie policy](https://www.cynbit.in/cookies) | Keep cookie behavior, preference controls, and policy text consistent; avoid persisting personal form content unless intentional and protected. | Actual cookies, consent UI, cookie attributes, and whether form fields are persisted in the browser. |
 | Careers architecture claims | Role description names secure authentication, database/schema optimization, and RESTful and GraphQL APIs. [Careers page](https://www.cynbit.in/careers/backend-developer-intern) | Candidate-facing APIs benefit from documented schemas, consistent errors, auth boundaries, and observability. | The site's implementation stack and any API architecture. |
+
+### API and payload evidence boundary
+
+The public HTML exposes form fields, but it does not disclose a wire-level API contract. I did not submit a form, so there is no observed HTTP method, endpoint, request body, response body, or status code to report. The JSON examples below are **proposed contracts**, inferred only from the visible form fields; they are not captured Cynbit payloads. This distinction avoids inventing behavior while still showing how I would structure the API.
+
+For an inquiry, the visible fields map naturally to a small allow-listed request (`name`, `email`, optional `company` and `industry`, and `message`). For recruitment, the public form currently presents substantially more personal information. The example DTO in [`examples/application-schema.ts`](examples/application-schema.ts) shows a minimized first-stage request and deliberately defers date of birth, gender, WhatsApp, and permanent address pending a documented business purpose.
 
 ## Findings and opportunities
 
@@ -77,6 +83,16 @@ Severity here is a prioritization of the **recommended design work**, not a conf
 
 **Confidence:** This is a consistency review opportunity; cookie implementation was not inspected.
 
+### F5 · Measure backend and page performance before optimizing — Low
+
+**Observed:** The public pages advertise high-performance engineering, but a passive text read does not provide reliable page timing, API latency, database query, cache-hit, or throughput measurements. No performance defect is confirmed.
+
+**Why it matters:** Without a baseline, optimization can target the wrong layer and regressions can go unnoticed.
+
+**Recommendation:** Instrument server-side request duration and status by route, queue age, email-provider latency, and database query duration. Track browser-facing Core Web Vitals separately. Set service objectives from real traffic and product needs; use cache headers for public, cacheable content and indexes only after query plans show a need. Load-test only an owned staging environment with authorization.
+
+**Confidence:** This is a measurement recommendation, not a finding that the current site is slow.
+
 ## Recommended backend shape
 
 For anonymous forms, I would use a small, explicit write boundary rather than allowing the UI to dictate persistence:
@@ -87,7 +103,7 @@ For anonymous forms, I would use a small, explicit write boundary rather than al
 4. **Outbox/queue:** Deliver notification email asynchronously with retries and deduplication.
 5. **Operations:** Structured logs with request ID and outcome only; metrics for accepted, rejected, throttled, queued, and failed submissions; alerts on queue age and provider failures.
 
-### Example success and error contract
+### Proposed inquiry success and error contract (illustrative)
 
 ```http
 POST /api/v1/inquiries
@@ -131,7 +147,7 @@ This review cannot confirm whether the site currently implements these controls.
 
 ## Deadline note
 
-The applicant-provided email and portal text show different submission times for 1 November 2026 (09:55 AM in the email and 03:25:38 PM in the portal). I did not infer a timezone or choose one as authoritative; confirm the portal's displayed deadline if needed.
+The applicant-provided email says 1 November 2026 at 09:55 AM; the portal text says 1 November 2026 at 03:25:38 PM. At the time this report was updated (1 November 2026, 1:25 PM IST), the email time had passed and the portal time had not. The portal's displayed deadline is the later of the two, but I cannot verify whether the portal remains open or whether either deadline has since changed.
 
 ## Sources
 
